@@ -1,4 +1,6 @@
-package com.magneto.cerebro.utils;
+package com.magneto.cerebro.utils.sequenceFinder.axis;
+
+import com.magneto.cerebro.utils.sequenceFinder.SequenceFinder;
 
 public class VerticalSequenceFinder extends SequenceFinder {
     public VerticalSequenceFinder(String[] array, int matchLength) {
@@ -15,8 +17,10 @@ public class VerticalSequenceFinder extends SequenceFinder {
 //        for (int colIndex = 0; colIndex < colCant; colIndex++)
 //        {
         for (int rowIndex = 0; rowIndex < array.length; rowIndex++) {
-            if (this.Find(array[rowIndex]))
+            if (this.Find(array[rowIndex])) {
+                System.out.print("Encontrado en VerticalSequenceFinder!!");
                 return true;
+            }
            /* nextChar = array[rowIndex].charAt(colIndex);
             if (currentChar != nextChar) {
                 currentChar = nextChar;

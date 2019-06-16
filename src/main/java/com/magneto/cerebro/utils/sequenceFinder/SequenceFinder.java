@@ -1,4 +1,4 @@
-package com.magneto.cerebro.utils;
+package com.magneto.cerebro.utils.sequenceFinder;
 
 public abstract class SequenceFinder {
     protected String[] array;
@@ -28,11 +28,9 @@ public abstract class SequenceFinder {
                 currentChar = nextChar;
                 matchCount = 1;
             }
-/*
+
             if (matchCount == matchLength)
                 return true;
-
- */
         }
         System.out.printf("\n");
 

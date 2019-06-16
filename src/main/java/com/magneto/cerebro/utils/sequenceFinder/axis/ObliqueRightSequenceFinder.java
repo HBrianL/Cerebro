@@ -1,8 +1,9 @@
-package com.magneto.cerebro.utils;
+package com.magneto.cerebro.utils.sequenceFinder.axis;
 
+import com.magneto.cerebro.utils.sequenceFinder.SequenceFinder;
 
-public class ObliqueLeftSequenceFinder extends SequenceFinder {
-    public ObliqueLeftSequenceFinder(String[] array, int matchLength) {
+public class ObliqueRightSequenceFinder extends SequenceFinder {
+    public ObliqueRightSequenceFinder(String[] array, int matchLength) {
         super(array, matchLength);
     }
 
@@ -10,17 +11,17 @@ public class ObliqueLeftSequenceFinder extends SequenceFinder {
     public boolean Find() {
         int rowsCount = this.array.length;
         int colsCount = this.array[0].length();
-        int firstColIndex = 0;
+        int firstColIndex = colsCount - 1;
 
         for (int i = this.matchLength; i < (rowsCount + colsCount) - (this.matchLength - 1); i++) {
-            int indexPosition = (i - rowsCount); //Me fijo si ya iteró todas las filas;
-            int startCol = Math.max(firstColIndex, indexPosition); // Si se pasa del maximo de filas, utilizo la posición del iterador.
+            int indexPosition = (rowsCount + colsCount) - i; //Me fijo si ya iteró todas las filas;
+            int startCol = Math.min(firstColIndex, indexPosition - 1); // Si se pasa del maximo de filas, utilizo la posición del iterador.
 
             //Me fijo dónde termina la diagonal hacia arriba. Si llegó al máximo de columnas siempre termina en la última.
-            int finalCol = (colsCount - startCol);
+            int finalCol = Math.max(0, Math.min(firstColIndex, startCol - i));
 
             //Longitud de la diagonal contra los límites.
-            int charItorLength = Math.min(Math.min(i, finalCol), rowsCount);
+            int charItorLength = Math.min(i, indexPosition);
 
             int matchCount = 0;
             char oldChar = array[0].charAt(0);
@@ -29,7 +30,7 @@ public class ObliqueLeftSequenceFinder extends SequenceFinder {
             for (int charItor = 0; charItor < charItorLength; charItor++) {
                 //Si llegó al final de las filas, a partir de ahí tomo el índice de las columnas.
                 int rowIndex = Math.min(rowsCount, i) - charItor - 1;
-                int colIndex = startCol + charItor;
+                int colIndex = startCol - charItor;
 
                 currentChar = array[rowIndex].charAt(colIndex);
 
@@ -38,16 +39,19 @@ public class ObliqueLeftSequenceFinder extends SequenceFinder {
                 if (oldChar == currentChar)
                     matchCount++;
                 else {
-                    oldChar = array[rowIndex].charAt(startCol + charItor);
+                    oldChar = currentChar;
                     matchCount = 1;
                 }
 
-                if (matchCount == matchLength)
+                if (matchCount == matchLength) {
+                    System.out.print("Encontrado en ObliqueRightSequenceFinder!!");
                     return true;
+                }
             }
-
+            //}
             System.out.printf("\n");
         }
+        System.out.print("==============");
 
         return false;
     }
