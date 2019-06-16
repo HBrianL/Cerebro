@@ -1,13 +1,21 @@
 package com.magneto.cerebro.utils.sequenceFinder;
 
-public abstract class SequenceFinder {
-    protected String[] array;
-    protected int matchLength;
+import java.util.ArrayList;
 
-    public SequenceFinder(String[] array, int matchLength) {
-        this.array = array;
-        this.matchLength = matchLength;
+public class SequenceFinder {
+    private ArrayList<SequenceFinderBase> finders;
+
+    public SequenceFinder(ArrayList<SequenceFinderBase> finders) {
+        this.finders = finders;
     }
 
-    public abstract boolean Find();
+    public int foundSequences() {
+        int count = 0;
+        for (SequenceFinderBase finder : finders) {
+            count += finder.founds();
+        }
+        System.out.print("FINDER - End");
+        System.out.print("\n");
+        return count;
+    }
 }

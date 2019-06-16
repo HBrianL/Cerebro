@@ -1,6 +1,6 @@
 package com.magneto.cerebro.utils.sequenceFinder.builder;
 
-import com.magneto.cerebro.utils.sequenceFinder.SequenceFinderManager;
+import com.magneto.cerebro.utils.sequenceFinder.SequenceFinder;
 
 public class SequenceFinderBuildDirector {
     private ISequenceFinderManagerBuilder builder;
@@ -9,7 +9,7 @@ public class SequenceFinderBuildDirector {
         this.builder = builder;
     }
 
-    public SequenceFinderManager construct(String[] array, int matchLength) {
+    public SequenceFinder construct(String[] array, int matchLength) {
          return builder.setArray(array).setMatchLength(matchLength).build();
     }
 }
