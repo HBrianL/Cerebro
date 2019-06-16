@@ -4,9 +4,8 @@ import com.magneto.cerebro.utils.sequenceFinder.SequenceFinder;
 import com.magneto.cerebro.utils.sequenceFinder.SequenceFinderManager;
 import com.magneto.cerebro.utils.sequenceFinder.axis.HorizontalSequenceFinder;
 import com.magneto.cerebro.utils.sequenceFinder.axis.ObliqueLeftSequenceFinder;
-import com.magneto.cerebro.utils.sequenceFinder.axis.ObliqueRightSequenceFinder;
 import com.magneto.cerebro.utils.sequenceFinder.axis.VerticalSequenceFinder;
-import com.magneto.cerebro.utils.sequenceFinder.builder.ISequenceFinderManagerBuilder;
+import com.magneto.cerebro.utils.sequenceFinder.axis.ObliqueRightSequenceFinder;
 
 import java.util.ArrayList;
 

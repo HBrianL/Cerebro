@@ -1,7 +1,6 @@
 package com.magneto.cerebro.utils.sequenceFinder.builder;
 
 import com.magneto.cerebro.utils.sequenceFinder.SequenceFinderManager;
-import com.magneto.cerebro.utils.sequenceFinder.builder.ISequenceFinderManagerBuilder;
 
 public class SequenceFinderBuildDirector {
     private ISequenceFinderManagerBuilder builder;

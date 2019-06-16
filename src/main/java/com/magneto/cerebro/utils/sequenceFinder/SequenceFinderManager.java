@@ -15,6 +15,8 @@ public class SequenceFinderManager {
             if (finder.Find())
                 count++;
         }
+        System.out.print("FINDER - End");
+        System.out.print("\n");
         return count;
     }
 }
