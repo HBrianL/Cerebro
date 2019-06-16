@@ -25,15 +25,12 @@ public class MatchCounter {
     public void count(Object next) {
         if (current == next) {
             count++;
+            if (isMatchEnd(matchLength)) {
+                matchs++;
+            }
         } else {
             current = next;
             count = 1;
         }
-
-        if (isMatchEnd(matchLength)) {
-            matchs++;
-            reset();
-        }
-
     }
 }

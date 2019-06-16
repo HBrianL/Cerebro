@@ -11,8 +11,8 @@ public class DnaService implements IDnaService {
         ISequenceFinderBuilder builder = new SequenceFinderBuilder();
         SequenceFinderBuildDirector director = new SequenceFinderBuildDirector(builder);
 
-        SequenceFinder manager = director.construct(dna, 4);
-        int founds = manager.foundSequences();
+        SequenceFinder sequenceFinder = director.construct(dna, 4);
+        int founds = sequenceFinder.foundSequences();
 
         System.out.print("FOUNDS - " + founds);
         System.out.print("\n");
