@@ -7,6 +7,7 @@ import com.magneto.cerebro.utils.sequenceFinder.builder.ISequenceFinderManagerBu
 import com.magneto.cerebro.utils.sequenceFinder.builder.SequenceFinderBuildDirector;
 import com.magneto.cerebro.utils.sequenceFinder.SequenceFinder;
 import com.magneto.cerebro.utils.sequenceFinder.builder.SequenceFinderManagerBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,11 +18,11 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
 public class CerebroController {
+    @Autowired
+    private IDnaService dnaService;
 
     @RequestMapping(method = POST)
     public HttpStatus mutant(@RequestBody DnaRequest dna) {
-        IDnaService dnaService = new DnaService();
-
         if (dnaService.isMutant(dna.getDna()))
             return HttpStatus.OK;
         else
