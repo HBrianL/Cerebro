@@ -9,7 +9,7 @@ import com.magneto.cerebro.utils.sequenceFinder.axis.ObliqueRightSequenceFinder;
 
 import java.util.ArrayList;
 
-public class SequenceFinderManagerBuilder implements ISequenceFinderManagerBuilder {
+public class SequenceFinderBuilder implements ISequenceFinderBuilder {
     private String[] array;
     private int matchLength;
 
@@ -24,13 +24,13 @@ public class SequenceFinderManagerBuilder implements ISequenceFinderManagerBuild
     }
 
     @Override
-    public ISequenceFinderManagerBuilder setArray(String[] array) {
+    public ISequenceFinderBuilder setArray(String[] array) {
         this.array = array;
         return this;
     }
 
     @Override
-    public ISequenceFinderManagerBuilder setMatchLength(int matchLength) {
+    public ISequenceFinderBuilder setMatchLength(int matchLength) {
         this.matchLength = matchLength;
         return this;
     }

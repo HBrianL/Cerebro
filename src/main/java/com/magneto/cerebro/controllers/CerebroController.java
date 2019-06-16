@@ -1,12 +1,7 @@
 package com.magneto.cerebro.controllers;
 
 import com.magneto.cerebro.controllers.models.DnaRequest;
-import com.magneto.cerebro.domain.DnaService;
 import com.magneto.cerebro.domain.IDnaService;
-import com.magneto.cerebro.utils.sequenceFinder.builder.ISequenceFinderManagerBuilder;
-import com.magneto.cerebro.utils.sequenceFinder.builder.SequenceFinderBuildDirector;
-import com.magneto.cerebro.utils.sequenceFinder.SequenceFinder;
-import com.magneto.cerebro.utils.sequenceFinder.builder.SequenceFinderManagerBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;

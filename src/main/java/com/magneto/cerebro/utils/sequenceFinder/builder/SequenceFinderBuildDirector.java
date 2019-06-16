@@ -3,9 +3,9 @@ package com.magneto.cerebro.utils.sequenceFinder.builder;
 import com.magneto.cerebro.utils.sequenceFinder.SequenceFinder;
 
 public class SequenceFinderBuildDirector {
-    private ISequenceFinderManagerBuilder builder;
+    private ISequenceFinderBuilder builder;
 
-    public SequenceFinderBuildDirector(ISequenceFinderManagerBuilder builder) {
+    public SequenceFinderBuildDirector(ISequenceFinderBuilder builder) {
         this.builder = builder;
     }
 
