@@ -1,9 +1,11 @@
 package com.magneto.cerebro.controllers;
 
 import com.magneto.cerebro.controllers.models.DnaRequest;
+import com.magneto.cerebro.domain.DnaService;
+import com.magneto.cerebro.domain.IDnaService;
 import com.magneto.cerebro.utils.sequenceFinder.builder.ISequenceFinderManagerBuilder;
 import com.magneto.cerebro.utils.sequenceFinder.builder.SequenceFinderBuildDirector;
-import com.magneto.cerebro.utils.sequenceFinder.SequenceFinderManager;
+import com.magneto.cerebro.utils.sequenceFinder.SequenceFinder;
 import com.magneto.cerebro.utils.sequenceFinder.builder.SequenceFinderManagerBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,17 +20,11 @@ public class CerebroController {
 
     @RequestMapping(method = POST)
     public HttpStatus mutant(@RequestBody DnaRequest dna) {
-        ISequenceFinderManagerBuilder builder = new SequenceFinderManagerBuilder();
-        SequenceFinderBuildDirector director = new SequenceFinderBuildDirector(builder);
+        IDnaService dnaService = new DnaService();
 
-        SequenceFinderManager manager = director.construct(dna.getDna(), 4);
-        int foundCount = manager.foundSequences();
-
-        if (foundCount > 1) {
+        if (dnaService.isMutant(dna.getDna()))
             return HttpStatus.OK;
-        } else {
+        else
             return HttpStatus.FORBIDDEN;
-        }
-
     }
 }
