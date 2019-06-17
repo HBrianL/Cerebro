@@ -11,9 +11,12 @@ public class ObliqueLeftSequenceFinder extends SequenceFinderBase {
     @Override
     public int founds() {
         int firstColIndex = 0;
+        int startRow = this.getMatchLength();
+        int endIteration = ((this.rowsCount() + this.colsCount()) - startRow) - 1;
+
         MatchCounter matchCounter = new MatchCounter(this.getMatchLength());
 
-        for (int i = this.getMatchLength(); i < (this.rowsCount() + this.colsCount()) - (this.getMatchLength() - 1); i++) {
+        for (int i = startRow; i < endIteration; i++) {
             int indexPosition = (i - this.rowsCount()); //Me fijo si ya iteró todas las filas;
             int startCol = Math.max(firstColIndex, indexPosition); // Si se pasa del maximo de filas, utilizo la posición del iterador.
 
