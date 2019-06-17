@@ -1,4 +1,4 @@
-package com.magneto.cerebro.utils;
+package com.magneto.cerebro.application;
 
 import com.magneto.cerebro.utils.sequenceFinder.SequenceFinder;
 import com.magneto.cerebro.utils.sequenceFinder.builder.ISequenceFinderBuilder;

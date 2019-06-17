@@ -1,10 +1,11 @@
 package com.magneto.cerebro.controllers;
 
+import com.magneto.cerebro.application.EntityToDTO;
 import com.magneto.cerebro.controllers.models.DnaRequest;
 import com.magneto.cerebro.controllers.models.DnaStatsResponse;
 import com.magneto.cerebro.domain.Dna;
 import com.magneto.cerebro.service.IDnaService;
-import com.magneto.cerebro.utils.MutantFinder;
+import com.magneto.cerebro.application.MutantFinder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -52,8 +54,8 @@ public class CerebroController {
      * */
     @RequestMapping(method = GET)
     public ResponseEntity<DnaStatsResponse> stats() {
-        DnaStatsResponse stats = dnaService.getStats();
-
+        Iterable<Dna> dnas = dnaService.findAll();
+        DnaStatsResponse stats = EntityToDTO.dnaToDnaStatsResponse(dnas);
         return ResponseEntity.ok(stats);
     }
 }
