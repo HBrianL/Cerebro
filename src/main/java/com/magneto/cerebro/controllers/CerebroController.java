@@ -19,6 +19,11 @@ public class CerebroController {
     @Autowired
     private IDnaService dnaService;
 
+    /*
+    * Detecta si un humano es mutante según la secuencia de ADN recibida.
+    * @param dnaRequest objeto con la secuencia de adn { adn: String[] }
+    * @return HttpStatus.OK si el adn es de mutante o HttpStatus.FORBIDDEN si es un humano.
+    * */
     @RequestMapping(method = POST)
     public HttpStatus mutant(@RequestBody DnaRequest dnaRequest) {
         String[] dna = dnaRequest.getDna();
