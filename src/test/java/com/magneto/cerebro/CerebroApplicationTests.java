@@ -12,9 +12,12 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Iterator;
+
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(CerebroController.class)
@@ -52,6 +55,34 @@ public class CerebroApplicationTests {
                 .andExpect(status().isForbidden());
 
         verify(service, times(1)).addDna(any(Dna.class));
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void givenTwoDnas_thenReturnsStatsIsMutant() throws Exception {
+        // givens
+        Dna dnaMutant = new Dna();
+        dnaMutant.setIsMutant(true);
+
+        Dna dnaHuman = new Dna();
+        dnaHuman.setIsMutant(false);
+
+        Iterable mockIterable = mock(Iterable.class);
+        Iterator mockIterator = mock(Iterator.class);
+
+        when(mockIterator.hasNext()).thenReturn(true, true, false);
+        when(mockIterator.next()).thenReturn(dnaMutant, dnaHuman);
+
+        when(service.findAll()).thenReturn(mockIterable);
+        when(mockIterable.iterator()).thenReturn(mockIterator);
+
+        mvc.perform(get("/stats"))
+                .andExpect(status().isOk())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(content().json("{\"count_mutant_dna\":1,\"count_human_dna\":1,\"ratio\":0.0}"));
+
+        verify(service, times(1)).findAll();
     }
 
 }
