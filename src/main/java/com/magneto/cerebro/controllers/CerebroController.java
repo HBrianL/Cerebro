@@ -1,16 +1,19 @@
 package com.magneto.cerebro.controllers;
 
 import com.magneto.cerebro.controllers.models.DnaRequest;
+import com.magneto.cerebro.controllers.models.DnaStatsResponse;
 import com.magneto.cerebro.domain.Dna;
 import com.magneto.cerebro.service.IDnaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 
@@ -20,10 +23,10 @@ public class CerebroController {
     private IDnaService dnaService;
 
     /*
-    * Detecta si un humano es mutante según la secuencia de ADN recibida.
-    * @param dnaRequest objeto con la secuencia de adn { adn: String[] }
-    * @return HttpStatus.OK si el adn es de mutante o HttpStatus.FORBIDDEN si es un humano.
-    * */
+     * Detecta si un humano es mutante según la secuencia de ADN recibida.
+     * @param dnaRequest objeto con la secuencia de adn { adn: String[] }
+     * @return HttpStatus.OK si el adn es de mutante o HttpStatus.FORBIDDEN si es un humano.
+     * */
     @RequestMapping(method = POST)
     public HttpStatus mutant(@RequestBody DnaRequest dnaRequest) {
         String[] dna = dnaRequest.getDna();
@@ -39,5 +42,17 @@ public class CerebroController {
             return HttpStatus.OK;
         else
             return HttpStatus.FORBIDDEN;
+    }
+
+    /*
+    * Devuelve las estadísticas de mutantes encontrados.
+    * @return un objeto DnaStatsResponse con la cantidad de mutantes y humanos encontrados
+    * y el ratio entre ambos.
+    * */
+    @RequestMapping(method = GET)
+    public ResponseEntity<DnaStatsResponse> stats() {
+        DnaStatsResponse stats = dnaService.getStats();
+
+        return ResponseEntity.ok(stats);
     }
 }
