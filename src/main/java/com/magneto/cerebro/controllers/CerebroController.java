@@ -4,6 +4,7 @@ import com.magneto.cerebro.controllers.models.DnaRequest;
 import com.magneto.cerebro.controllers.models.DnaStatsResponse;
 import com.magneto.cerebro.domain.Dna;
 import com.magneto.cerebro.service.IDnaService;
+import com.magneto.cerebro.utils.MutantFinder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,9 +29,9 @@ public class CerebroController {
      * @return HttpStatus.OK si el adn es de mutante o HttpStatus.FORBIDDEN si es un humano.
      * */
     @RequestMapping(method = POST)
-    public HttpStatus mutant(@RequestBody DnaRequest dnaRequest) {
+    public ResponseEntity mutant(@RequestBody DnaRequest dnaRequest) {
         String[] dna = dnaRequest.getDna();
-        boolean isMutant = dnaService.isMutant(dna);
+        boolean isMutant = MutantFinder.isMutant(dna);
 
         Dna dnaEntity = new Dna();
         dnaEntity.setDna(Arrays.toString(dna));
@@ -39,16 +40,16 @@ public class CerebroController {
         dnaService.addDna(dnaEntity);
 
         if (isMutant)
-            return HttpStatus.OK;
+            return new ResponseEntity(HttpStatus.OK);
         else
-            return HttpStatus.FORBIDDEN;
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
     }
 
     /*
-    * Devuelve las estadísticas de mutantes encontrados.
-    * @return un objeto DnaStatsResponse con la cantidad de mutantes y humanos encontrados
-    * y el ratio entre ambos.
-    * */
+     * Devuelve las estadísticas de mutantes encontrados.
+     * @return un objeto DnaStatsResponse con la cantidad de mutantes y humanos encontrados
+     * y el ratio entre ambos.
+     * */
     @RequestMapping(method = GET)
     public ResponseEntity<DnaStatsResponse> stats() {
         DnaStatsResponse stats = dnaService.getStats();
