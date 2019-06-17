@@ -8,6 +8,7 @@ import com.magneto.cerebro.utils.sequenceFinder.builder.SequenceFinderBuildDirec
 import com.magneto.cerebro.utils.sequenceFinder.builder.SequenceFinderBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 
+
 public class DnaService implements IDnaService {
     @Autowired
     private DnaRepository dnaRepository;
@@ -27,6 +28,9 @@ public class DnaService implements IDnaService {
 
     @Override
     public void addDna(Dna dna) {
-        dnaRepository.save(dna);
+        Dna d = dnaRepository.findByDna(dna.getDna());
+
+        if (d == null)
+            dnaRepository.save(dna);
     }
 }
