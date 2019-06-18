@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
-import java.util.Iterator;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -31,15 +32,23 @@ public class CerebroController {
      * @return HttpStatus.OK si el adn es de mutante o HttpStatus.FORBIDDEN si es un humano.
      * */
     @RequestMapping(method = POST)
-    public ResponseEntity mutant(@RequestBody DnaRequest dnaRequest) {
+    public ResponseEntity mutant(@RequestBody DnaRequest dnaRequest) throws InterruptedException, ExecutionException {
         String[] dna = dnaRequest.getDna();
-        boolean isMutant = MutantFinder.isMutant(dna);
 
-        Dna dnaEntity = new Dna();
-        dnaEntity.setDna(Arrays.toString(dna));
-        dnaEntity.setIsMutant(isMutant);
+        boolean isMutant =
+                CompletableFuture
+                        .completedFuture(MutantFinder.isMutant(dna))
+                        .thenApplyAsync(bIsMutant -> {
 
-        dnaService.addDna(dnaEntity);
+                            Dna dnaEntity = new Dna();
+                            dnaEntity.setDna(Arrays.toString(dna));
+                            dnaEntity.setIsMutant(bIsMutant);
+
+                            dnaService.addDna(dnaEntity);
+
+                            return bIsMutant;
+
+                        }).get();
 
         if (isMutant)
             return new ResponseEntity(HttpStatus.OK);
@@ -53,9 +62,13 @@ public class CerebroController {
      * y el ratio entre ambos.
      * */
     @RequestMapping(method = GET)
-    public ResponseEntity<DnaStatsResponse> stats() {
-        Iterable<Dna> dnas = dnaService.findAll();
-        DnaStatsResponse stats = EntityToDTO.dnaToDnaStatsResponse(dnas);
+    public ResponseEntity<DnaStatsResponse> stats() throws InterruptedException, ExecutionException {
+        DnaStatsResponse stats =
+                CompletableFuture
+                        .completedFuture(dnaService.findAll())
+                        .thenApplyAsync(EntityToDTO::dnaToDnaStatsResponse)
+                        .get();
+
         return ResponseEntity.ok(stats);
     }
 }

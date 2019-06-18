@@ -17,7 +17,7 @@ public class DnaService implements IDnaService {
     }
 
     @Override
-    public Iterable<Dna> findAll(){
-        return  dnaRepository.findAll();
+    public Iterable<Dna> findAll() {
+        return dnaRepository.findAll();
     }
 }

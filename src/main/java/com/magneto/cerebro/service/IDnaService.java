@@ -4,5 +4,6 @@ import com.magneto.cerebro.domain.Dna;
 
 public interface IDnaService {
     void addDna(Dna dna);
+
     Iterable<Dna> findAll();
 }
