@@ -2,7 +2,7 @@
 Buscador de mutantes.
 
 ### URL de api:
-`http://cerebro-env.phnudt2pwt.sa-east-1.elasticbeanstalk.com/`
+[http://cerebro-env.phnudt2pwt.sa-east-1.elasticbeanstalk.com/](http://cerebro-env.phnudt2pwt.sa-east-1.elasticbeanstalk.com/)
 
 ### Endpoints: 
 ### POST -> /mutant 
