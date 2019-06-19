@@ -2,10 +2,10 @@ package com.magneto.cerebro.application;
 
 import com.magneto.cerebro.controllers.models.DnaStatsResponse;
 import com.magneto.cerebro.domain.Dna;
+import com.magneto.cerebro.utils.Ratio;
 
 public class EntityToDTO {
-    public static DnaStatsResponse dnaToDnaStatsResponse(Iterable<Dna> dnas)
-    {
+    public DnaStatsResponse dnaToDnaStatsResponse(Iterable<Dna> dnas) {
         DnaStatsResponse stats = new DnaStatsResponse();
 
         for (Dna dna : dnas) {
@@ -14,6 +14,9 @@ public class EntityToDTO {
             else
                 stats.setCount_human_dna(stats.getCount_human_dna() + 1);
         }
+
+        Ratio ratio = new Ratio(stats.getCount_human_dna(), stats.getCount_mutant_dna());
+        stats.setRatio(ratio.calculate());
 
         return stats;
     }

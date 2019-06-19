@@ -1,9 +1,8 @@
 package com.magneto.cerebro.utils.sequenceFinder.axis;
 
 import com.magneto.cerebro.utils.MatchCounter;
-import com.magneto.cerebro.utils.sequenceFinder.SequenceFinderBase;
 
-public class HorizontalSequenceFinder extends SequenceFinderBase {
+public class HorizontalSequenceFinder extends AxisSequenceFinder {
 
     public HorizontalSequenceFinder(String[] array, int matchLength) {
         super(array, matchLength);

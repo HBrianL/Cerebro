@@ -1,6 +1,6 @@
 package com.magneto.cerebro.utils.sequenceFinder.builder;
 
-import com.magneto.cerebro.utils.sequenceFinder.SequenceFinderBase;
+import com.magneto.cerebro.utils.sequenceFinder.axis.AxisSequenceFinder;
 import com.magneto.cerebro.utils.sequenceFinder.SequenceFinder;
 import com.magneto.cerebro.utils.sequenceFinder.axis.HorizontalSequenceFinder;
 import com.magneto.cerebro.utils.sequenceFinder.axis.ObliqueLeftSequenceFinder;
@@ -15,7 +15,7 @@ public class SequenceFinderBuilder implements ISequenceFinderBuilder {
 
     @Override
     public SequenceFinder build() {
-        ArrayList<SequenceFinderBase> finders = new ArrayList<>();
+        ArrayList<AxisSequenceFinder> finders = new ArrayList<>();
         finders.add(new HorizontalSequenceFinder(array, matchLength));
         finders.add(new VerticalSequenceFinder(array, matchLength));
         finders.add(new ObliqueLeftSequenceFinder(array, matchLength));

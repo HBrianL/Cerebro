@@ -1,9 +1,8 @@
 package com.magneto.cerebro.utils.sequenceFinder.axis;
 
 import com.magneto.cerebro.utils.MatchCounter;
-import com.magneto.cerebro.utils.sequenceFinder.SequenceFinderBase;
 
-public class ObliqueRightSequenceFinder extends SequenceFinderBase {
+public class ObliqueRightSequenceFinder extends AxisSequenceFinder {
     public ObliqueRightSequenceFinder(String[] array, int matchLength) {
         super(array, matchLength);
     }
